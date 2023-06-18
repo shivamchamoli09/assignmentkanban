@@ -48,6 +48,8 @@ export default function CustomSelect({
             fontSize: "16px",
             paddingLeft: "6px",
             color: "#787486",
+            display: "flex",
+            alignItems: "center",
           },
           ".MuiSvgIcon-root": { display: "none" },
         }}
