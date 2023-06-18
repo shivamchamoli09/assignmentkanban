@@ -102,6 +102,7 @@ export default function CustomDrawer({
           boxShadow: "none",
           borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
           background: "#FFF",
+          paddingRight:'0!important'
         }}
       >
         <TopBar handleDrawerOpen={handleDrawerOpen} open={open} />

@@ -54,9 +54,7 @@ export default function Home() {
         ...inprogressTasks,
       ]);
   };
-  console.log(todoTasks);
-  console.log(inprogressTasks);
-  console.log(completedTasks);
+ 
   return (
     <Box
       sx={{ padding: "40px 25px", display: "flex", flexDirection: "column" }}

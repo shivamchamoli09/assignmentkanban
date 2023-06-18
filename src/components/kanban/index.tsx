@@ -18,7 +18,6 @@ export interface IKanban extends IBoxHeader {
 
 const KanbanBox: React.FC<IKanban> = (props) => {
   const handleDropTask = (item: ITask, target?: string) => {
-    console.log('after drop****',item, target);
     if (item.type === target) return;
     props?.onTaskStatusChange?.(item, target);
   };

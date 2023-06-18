@@ -17,7 +17,7 @@ export interface ITask {
   title?: string;
   caption?: string;
   type?: string;
-  imageUrl?: string;
+  imageUrl?: string[];
 }
 
 const Task: React.FC<ITask> = ({
@@ -51,7 +51,13 @@ const Task: React.FC<ITask> = ({
 
       <Typography variant="h3">{title}</Typography>
       <Typography variant="caption">{caption}</Typography>
-      {imageUrl && <img src={imageUrl} alt="image" />}
+      {imageUrl?.length && (
+        <Box display={"flex"} gap="8px">
+          {imageUrl?.map((url) => (
+            <img key={url} src={url} alt="image" />
+          ))}{" "}
+        </Box>
+      )}
 
       <Footer />
     </Box>

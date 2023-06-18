@@ -88,12 +88,10 @@ const TopBar: React.FC<ITopBar> = ({ handleDrawerOpen, open }) => {
             </Typography>
           </Box>
           <Box>
-            <Image
+            <img
               style={{ borderRadius: "50%" }}
               alt="avatar"
               src={"/avatar.png"}
-              width={38}
-              height={38}
             />
           </Box>
         </Box>

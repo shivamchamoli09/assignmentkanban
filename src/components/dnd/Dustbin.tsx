@@ -29,7 +29,6 @@ export const Dustbin: FC<{ children?: ReactNode; id?: string }> = ({
     options: { targetId: "test" },
     drop: () => ({ name: id, targetId: "test" }),
     canDrop: (item: { name?: string }) => {
-      //   console.log("item***", item.name, id);
       if (item.name === "todo" && id === "completed") return false;
       if (item.name === "completed" && id === "todo") return false;
       return true;

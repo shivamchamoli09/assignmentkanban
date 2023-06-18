@@ -41,7 +41,7 @@ export const onProgressTasksData: IKanban = {
       taskColor: "#D58D49",
       //   caption:
       //     "Brainstorming brings team members' diverse experience into play. ",
-      imageUrl: "/progress1.png",
+      imageUrl: ["/progress1.png"],
     },
     {
       id: "i2",
@@ -50,8 +50,9 @@ export const onProgressTasksData: IKanban = {
       taskTitle: "Low",
       taskColor: "#D58D49",
       title: "Moodboard",
-      caption:
-        "Brainstorming brings team members' diverse experience into play. ",
+      //   caption:
+      //     "Brainstorming brings team members' diverse experience into play. ",
+      imageUrl: ["/progress2.png", "progress3.png"],
     },
   ],
 };
@@ -70,7 +71,7 @@ export const completedTasksData: IKanban = {
       taskColor: "#68B266",
       //   caption:
       //     "Brainstorming brings team members' diverse experience into play. ",
-      imageUrl: "/completed.png",
+      imageUrl: ["/completed.png"],
     },
     {
       id: "c2",
