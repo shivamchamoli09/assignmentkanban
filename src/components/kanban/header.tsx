@@ -39,12 +39,19 @@ const BoxHeader: React.FC<IBoxHeader> = ({
         </Box>
 
         {allowAction && (
-          <Box ml="auto" display="flex" flexDirection="column">
+          <Box
+            ml="auto"
+            display="flex"
+            flexDirection="column"
+            position={"relative"}
+          >
             <MoreHorizOutlinedIcon
               sx={{
                 width: "14px",
                 height: "14px",
                 color: "#787486",
+                position: "absolute",
+                top: "-15px",
               }}
             />
             <InviteIcon />
