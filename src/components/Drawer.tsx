@@ -102,7 +102,7 @@ export default function CustomDrawer({
           boxShadow: "none",
           borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
           background: "#FFF",
-          paddingRight:'0!important'
+          paddingRight: "0!important",
         }}
       >
         <TopBar handleDrawerOpen={handleDrawerOpen} open={open} />
@@ -123,7 +123,7 @@ export default function CustomDrawer({
         <DrawerHeader
           sx={{ justifyContent: "start", padding: "0px 22px", height: "88px" }}
         >
-          <Box display="flex" gap={"8px"}>
+          <Box display="flex" gap={"8px"} alignItems={"center"}>
             <LogoIcon />
             <Typography variant="h2">Project M.</Typography>
           </Box>

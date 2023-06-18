@@ -81,7 +81,14 @@ const TopBar: React.FC<ITopBar> = ({ handleDrawerOpen, open }) => {
         </IconButton>
 
         <Box display={"flex"} gap="16px">
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "3px",
+              justifyContent: "center",
+            }}
+          >
             <Typography variant="h4">Anima Agrawal</Typography>
             <Typography variant="body1" textAlign={"end"}>
               U.P, India

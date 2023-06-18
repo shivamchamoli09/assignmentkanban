@@ -6,7 +6,7 @@ import {
   MenuIcon,
   PauseIcon,
 } from "@/static";
-import { Box, MenuItem, Stack } from "@mui/material";
+import { Box, IconButton, MenuItem, Stack, Theme } from "@mui/material";
 import React from "react";
 import CustomSelect from "../generic/Select";
 import { CustomButton } from "../generic";
@@ -48,13 +48,22 @@ const MobileAppFilters: React.FC = () => {
         <CustomButton
           btnProps={{
             color: "primary",
-            sx: { background: "#5030E5", minWidth: "40px", height: "40px" },
+            sx: (theme: Theme) => ({
+              background: "#5030E5",
+              minWidth: "40px",
+              height: "40px",
+              ":hover": {
+                background: theme.palette.primary.main,
+              },
+            }),
           }}
         >
           <PauseIcon />
         </CustomButton>
 
-        <MenuIcon />
+        <IconButton sx={{ borderRadius: 0 }}>
+          <MenuIcon />
+        </IconButton>
       </Box>
     </Stack>
   );
