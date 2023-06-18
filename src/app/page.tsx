@@ -1,95 +1,100 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import Image from "next/image";
+import styles from "./page.module.css";
+import MobileAppHeader from "@/components/mobileApp/Header";
+import MobileAppFilters from "@/components/mobileApp/Filters";
+import KanbanBox from "@/components/kanban";
+import {
+  completedTasksData,
+  onProgressTasksData,
+  toDoTasksData,
+} from "@/seeds/tasks.seeds";
+import { Box, Grid, Stack } from "@mui/material";
+import { boardContainerStyles } from "@/styles/board.styles";
+import { useState } from "react";
+import { ITask } from "@/components/kanban/task";
 
 export default function Home() {
+  const [todoTasks, setTodoTasks] = useState<ITask[]>([
+    ...(toDoTasksData.tasks as ITask[]),
+  ]);
+  const [inprogressTasks, setInProgressTasks] = useState<ITask[]>([
+    ...(onProgressTasksData.tasks as ITask[]),
+  ]);
+  const [completedTasks, setCompletedTasks] = useState<ITask[]>([
+    ...(completedTasksData.tasks as ITask[]),
+  ]);
+
+  const handleTodoTaskUpdate = (item: ITask, target?: string) => {
+    setTodoTasks((prev) => prev.filter((p) => p?.id !== item.id));
+    setInProgressTasks([{ ...item, type: "inprogress" }, ...inprogressTasks]);
+  };
+
+  const handleInProgressTaskUpdate = (item: ITask, target?: string) => {
+    setInProgressTasks((prev) =>
+      prev.filter((p) => {
+        if (p?.id !== item.id) return { ...p };
+      })
+    );
+    if (target === "todo")
+      setTodoTasks([{ ...item, type: "todo" }, ...todoTasks]);
+    else if (target === "completed")
+      setCompletedTasks([
+        { ...item, type: "completed", taskTitle: "Completed" },
+        ...completedTasks,
+      ]);
+  };
+
+  const handleCompletedTaskUpdate = (item: ITask, target?: string) => {
+    setCompletedTasks((prev) => prev.filter((p) => p?.id !== item.id));
+    if (target === "inprogress")
+      setInProgressTasks([
+        { ...item, type: "inprogress", taskTitle: "Low" },
+        ...inprogressTasks,
+      ]);
+  };
+  console.log(todoTasks);
+  console.log(inprogressTasks);
+  console.log(completedTasks);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Box
+      sx={{ padding: "40px 25px", display: "flex", flexDirection: "column" }}
+      gap={"40px"}
+    >
+      <MobileAppHeader />
+      <MobileAppFilters />
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Grid
+        container
+        spacing="15px"
+        justifyContent={"center"}
+        key={`${todoTasks?.length}${inprogressTasks?.length}${completedTasks?.length}`}
+      >
+        <Grid item xs={12} sm={6} md={4} sx={boardContainerStyles}>
+          <KanbanBox
+            {...{ ...toDoTasksData, tasks: todoTasks }}
+            id="todo"
+            onTaskStatusChange={handleTodoTaskUpdate}
+          />
+        </Grid>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <Grid item xs={12} sm={6} md={4} sx={boardContainerStyles}>
+          <KanbanBox
+            {...{ ...onProgressTasksData, tasks: inprogressTasks }}
+            id="inprogress"
+            onTaskStatusChange={handleInProgressTaskUpdate}
+          />
+        </Grid>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <Grid item xs={12} sm={4} md={4} sx={boardContainerStyles}>
+          <KanbanBox
+            {...{ ...completedTasksData, tasks: completedTasks }}
+            id="completed"
+            onTaskStatusChange={handleCompletedTaskUpdate}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
